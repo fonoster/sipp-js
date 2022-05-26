@@ -27,6 +27,7 @@ import {SIPPOptions, TransportMode} from "./types";
  *
  * @example
  * const SIPP = require("sipp-js");
+ *
  * const sipp = new SIPP({
  *  remoteHost: "remote.host.com",
  *  localPort: 5060,
