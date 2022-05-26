@@ -32,7 +32,7 @@ import {SIPPOptions, TransportMode} from "./types";
  *  localPort: 5060,
  *  timeout: 5000
  * });
- * sipp.setUser("user", "password");
+ * sipp.setUsername("user", "password");
  * sipp.setPassword("password");
  * sipp.setScenario(`${process.cwd()}/scenarios/etc/arc.xml`);
  * sipp.start();
@@ -291,7 +291,7 @@ export default class SIPP {
   }
 
   /**
-   * Stops an instance of SIPp synchronously.
+   * Stops the instance.
    */
   stop(): void {
     throw new Error("Not implemented");

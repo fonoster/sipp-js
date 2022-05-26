@@ -53,7 +53,7 @@ const sipp = new SIPP({
  localPort: 5060,
  timeout: 5000
 });
-sipp.setUser("user", "password");
+sipp.setUsername("user", "password");
 sipp.setPassword("password");
 sipp.setScenario(`${process.cwd()}/scenarios/etc/arc.xml`);
 sipp.start();
@@ -273,6 +273,6 @@ Starts an instance of SIPp asynchronously.
 <a name="SIPP+stop"></a>
 
 ### sipP.stop()
-Stops an instance of SIPp synchronously.
+Stops the instance.
 
 **Kind**: instance method of [<code>SIPP</code>](#SIPP)  
