@@ -32,7 +32,7 @@ import {SIPPOptions, TransportMode} from "./types";
  *  localPort: 5060,
  *  timeout: 5000
  * });
- * sipp.setUsername("user", "password");
+ * sipp.setUsername("user");
  * sipp.setPassword("password");
  * sipp.setScenario(`${process.cwd()}/scenarios/etc/arc.xml`);
  * sipp.start();
