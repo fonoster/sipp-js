@@ -20,24 +20,33 @@ import {execSync, exec} from "child_process";
 import {SIPPOptions, TransportMode} from "./types";
 
 /**
- * @classdesc SIPP is SIP user agent you can use to create web-based softphones.
- * It uses [SIP.js](https://sipjs.com) as the foundation but aims to be much easier for simple use-cases.
+ * @classdesc sipp-js is a wrapper for sipp. The purpose of this library is to simplify the
+ * creation of SIPp instances. It is not intended to be a full SIPp implementation.
  *
- * Create an HTMLAudioElement, in your HTML code, give it an id and use it to create your WPhone object.
- * See [src/examples.ts](src/examples.ts) for an implementation example.
- *
+ * > This library requires the sipp executable to be installed on the system.
  *
  * @example
- * const WPhone = require("wphone");
+ * const SIPP = require("sipp-js");
+ * const sipp = new SIPP({
+ *  remoteHost: "remote.host.com",
+ *  localPort: 5060,
+ *  timeout: 5000
+ * });
+ * sipp.setUser("user", "password");
+ * sipp.setPassword("password");
+ * sipp.setScenario(`${process.cwd()}/scenarios/etc/arc.xml`);
+ * sipp.start();
+ *
+ * assert.ok(result.stderr == null)
  */
 export default class SIPP {
   timeout: number;
   opts: Map<string, string>;
   cmd: string;
   /**
-   * Constructs a new WPhone object.
+   * Constructs a new SIPP object.
    *
-   * @param {SIPPOptions} options - Configuration object for WPhone
+   * @param {SIPPOptions} options - Configuration object for SIPP
    * @param {string} options.remoteHost - Remote host to connect to
    * @param {number} options.localPort - Local port to use for SIP signaling
    * @param {number} options.timeout - Timeout for SIP signaling
