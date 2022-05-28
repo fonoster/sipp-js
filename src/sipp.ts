@@ -31,7 +31,7 @@ import {SIPPOptions, TransportMode} from "./types";
  * const sipp = new SIPP({
  *  remoteHost: "remote.host.com",
  *  localPort: 5060,
- *  timeout: 5000
+ *  timeout: 30
  * });
  * sipp.setUsername("user");
  * sipp.setPassword("password");
@@ -50,7 +50,7 @@ export default class SIPP {
    * @param {SIPPOptions} options - Configuration object for SIPP
    * @param {string} options.remoteHost - Remote host to connect to
    * @param {number} options.localPort - Local port to use for SIP signaling
-   * @param {number} options.timeout - Timeout for SIP signaling
+   * @param {number} options.timeout - Timeout in seconds, to quit SIPp
    */
   constructor(options: SIPPOptions) {
     const opts = new Map();
@@ -63,7 +63,7 @@ export default class SIPP {
     opts.set("-t", "t1");
     opts.set("-trace_err", "");
     opts.set("-trace_msg", "");
-    opts.set("-timeout", options.timeout || 60000);
+    opts.set("-timeout", options.timeout || 20);
     this.cmd = options.remoteHost ? `sipp ${options.remoteHost}` : "sipp";
     this.timeout = options.timeout;
     this.opts = opts;
@@ -225,7 +225,7 @@ export default class SIPP {
 
   /**
    * Sets a timeout to quit SIPp.
-   * @param {number} timeout - Timeout to use
+   * @param {number} timeout - Timeout to use (in seconds)
    * @return {SIPP}
    */
   withTimeout(timeout: number): SIPP {
