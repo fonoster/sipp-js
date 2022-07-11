@@ -43,7 +43,7 @@ Constructs a new SIPP object.
 | options | <code>SIPPOptions</code> | Configuration object for SIPP |
 | options.remoteHost | <code>string</code> | Remote host to connect to |
 | options.localPort | <code>number</code> | Local port to use for SIP signaling |
-| options.timeout | <code>number</code> | Timeout in seconds, to quit SIPp |
+| options.timeout | <code>number</code> | Timeout in milliseconds to quit SIPp. Defaults to 30 seconds. |
 
 **Example**  
 ```js
@@ -52,7 +52,7 @@ const SIPP = require("sipp-js");
 const sipp = new SIPP({
  remoteHost: "remote.host.com",
  localPort: 5060,
- timeout: 30
+ timeout: 30000
 });
 sipp.setUsername("user");
 sipp.setPassword("password");
