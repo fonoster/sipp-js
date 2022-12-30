@@ -18,6 +18,7 @@
  */
 import {execSync, exec} from "child_process";
 import {SIPPOptions, TransportMode} from "./types";
+import * as sleep from "sleep";
 
 /**
  * @classdesc sipp-js is a wrapper for sipp. The purpose of this library is to simplify the
@@ -265,9 +266,7 @@ export default class SIPP {
     }
 
     // Give it some time to close the port
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const sleep = require("system-sleep");
-    sleep(5000);
+    sleep.msleep(5000);
 
     return result;
   }
