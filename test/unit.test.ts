@@ -41,6 +41,7 @@ describe('test plan for sipp-js', () => {
     expect(sipp.build()).to.include('-t t1')
     expect(sipp.build()).to.include('-trace_err')
     expect(sipp.build()).to.include('-trace_msg')
+    expect(sipp.build()).to.include('-nostdin')
     expect(sipp.build()).to.include('-timeout 3000')
   })
 
