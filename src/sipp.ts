@@ -18,7 +18,17 @@
  */
 import {execSync, exec} from "child_process";
 import {SIPPOptions, TransportMode} from "./types";
-import * as sleep from "sleep";
+
+/**
+ * Blocks the current thread for the given number of milliseconds. Replaces the
+ * native "sleep" package, which needs node-gyp and no longer builds on current
+ * Node releases; Atomics.wait on a shared buffer is the standard pure-JS way.
+ *
+ * @param {number} ms - Milliseconds to block
+ */
+export function msleep(ms: number): void {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
 
 /**
  * @classdesc sipp-js is a wrapper for sipp. The purpose of this library is to simplify the
@@ -64,6 +74,11 @@ export default class SIPP {
     opts.set("-t", "t1");
     opts.set("-trace_err", "");
     opts.set("-trace_msg", "");
+    // SIPp is driven from a child process whose stdin is a pipe, never a terminal.
+    // Without this SIPp still polls stdin for keystrokes, and a scenario that ends
+    // within a few milliseconds segfaults on exit under execSync (seen with SIPp
+    // 3.6 on Linux), losing its trace files and reporting a bogus failure.
+    opts.set("-nostdin", "");
     opts.set("-timeout", options.timeout || 30000);
     this.cmd = options.remoteHost ? `sipp ${options.remoteHost}` : "sipp";
     this.timeout = options.timeout || 30000;
@@ -266,7 +281,7 @@ export default class SIPP {
     }
 
     // Give it some time to close the port
-    sleep.msleep(5000);
+    msleep(5000);
 
     return result;
   }
